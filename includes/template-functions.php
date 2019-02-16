@@ -52,9 +52,10 @@ function wp_sms_get_option( $option_name, $pro = false, $setting_name = '' ) {
  */
 function wp_sms_send( $to, $msg, $is_flash = false ) {
 	global $sms;
+	$to = str_replace(array('٠','١','٢','٣','٤','٥','٦','٧','٨','٩'),array(0,1,2,3,4,5,6,7,8,9),$to);
 
 	$sms->isflash = $is_flash;
-	$sms->to      = array( $to );
+	$sms->to      = is_array($to) ? $to : array( $to );
 	$sms->msg     = $msg;
 
 	return $sms->SendSMS();
